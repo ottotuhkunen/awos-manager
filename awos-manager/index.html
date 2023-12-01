@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <meta name="robots" content="noindex">
+        <title>AWOS Manager ❄️</title>
+        <link rel="icon" href="./favicon.ico">
+        <script type="text/javascript" src="./data.js"></script>
+    </head>
+    <style>
+        body {
+            user-select: none;
+            font-family: Verdana, sans-serif;
+            font-weight: 400;
+            background-color: rgb(232,232,232);
+            background-image: url('pattern.png');
+            background-repeat: repeat;
+        }
+        #infoWindow1 {
+            width: 202.2px;
+            font-family: 'Verdana';
+            font-size: 18px;
+            margin: 8px;
+        }
+        #infoWindow2 {
+            width: 343.5px;
+            font-family: 'Verdana';
+            font-size: 18px;
+            margin: 8px;
+        }
+        #infoWindow3 {
+            width: 343.5px;
+            font-family: 'Verdana';
+            font-size: 18px;
+            margin: 8px;
+        }
+        #warningsWindow {
+            width: 1084px;
+            font-family: 'Verdana';
+            font-size: 18px;
+            margin: 8px;
+        }
+        button {
+            background-color: lightgreen;
+            cursor: pointer;
+            height: 24px;
+        }
+    </style>
+    <body>
+        <b>Runway condition: &ensp;</b>
+        <button id="saveRWYCC" onclick="pushConditionData();">Save data</button>
+        <span id="rwyccSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
+        <br><br>
+        <select name="rwycc" id="rwycc" style="width: 56px;">
+            <option value="off"></option>
+            <option value="6">6</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+        </select>
+        <select name="upgr_dngr" id="upgr_dngr" style="width: 56px;">
+            <option value="off"></option>
+            <option value="•">•</option>
+            <option value="↑">↑</option>
+            <option value="↓">↓</option>
+        </select>
+        <select name="depth" id="depth" style="width: 56px;">
+            <option value="off"></option>
+            <option value="0">0 mm</option>
+            <option value="1">1 mm</option>
+            <option value="2">2 mm</option>
+            <option value="3">3 mm</option>
+            <option value="4">4 mm</option>
+            <option value="5">5 mm</option>
+            <option value="6">6 mm</option>
+            <option value="7">7 mm</option>
+            <option value="8">8 mm</option>
+            <option value="9">9 mm</option>
+            <option value="10">10 mm</option>
+        </select>
+        <select name="contaminants" id="contaminants">
+            <option value="off"></option>
+            <option value="DRY">DRY</option>
+            <option value="WET">WET</option>
+            <option value="SLIPPERY WET">SLIPPERY WET</option>
+            <option value="STANDING WATER">STANDING WATER</option>
+            <option value="FROST">FROST</option>
+            <option value="SLUSH">SLUSH</option>
+            <option value="DRY SNOW">DRY SNOW</option>
+            <option value="WET SNOW">WET SNOW</option>
+            <option value="COMPACTED SNOW">COMPACTED SNOW</option>
+            <option value="DRY SNOW ON TOP OF COMPACTED SNOW">DRY SNOW ON TOP OF COMPACTED SNOW</option>
+            <option value="WET SNOW ON TOP OF COMPACTED SNOW">WET SNOW ON TOP OF COMPACTED SNOW</option>
+            <option value="WATER ON TOP OF COMPACTED SNOW">WATER ON TOP OF COMPACTED SNOW</option>
+            <option value="ICE">ICE</option>
+            <option value="WET ICE">WET ICE</option>
+            <option value="DRY SNOW ON TOP OF ICE">DRY SNOW ON TOP OF ICE</option>
+            <option value="WET SNOW ON TOP OF ICE">WET SNOW ON TOP OF ICE</option>
+        </select>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td>taxiway conditions </td>
+                <td>
+                    <select name="twyConditions" id="twyConditions" style="width: 160px;">
+                        <option value="N/A"></option>
+                        <option value="GOOD">GOOD</option>
+                        <option value="MEDIUM TO GOOD">MEDIUM TO GOOD</option>
+                        <option value="MEDIUM">MEDIUM</option>
+                        <option value="MEDIUM TO POOR">MEDIUM TO POOR</option>
+                        <option value="POOR">POOR</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>apron conditions </td>
+                <td>
+                    <select name="apnConditions" id="apnConditions" style="width: 160px;">
+                        <option value="N/A"></option>
+                        <option value="GOOD">GOOD</option>
+                        <option value="MEDIUM TO GOOD">MEDIUM TO GOOD</option>
+                        <option value="MEDIUM">MEDIUM</option>
+                        <option value="MEDIUM TO POOR">MEDIUM TO POOR</option>
+                        <option value="POOR">POOR</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>RWY cleared width &ensp;</td>
+                <td>
+                    <input id="clearedWidth" style="width: 26px;"> meters
+                </td>
+            </tr>
+        </table>
+        <hr>
+
+        <b>Information windows: &ensp;</b>
+        <button id="saveInformationWindows" onclick="pushInformationData();">Save data</button>
+        <span id="infoWindowSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
+        <br><br>
+        left side (04L)<br>
+        <textarea type="text" id="infoWindow1" rows="3" name="informationWindow1"></textarea>
+        <br>
+        top right (22R)<br>
+        <textarea type="text" id="infoWindow2" rows="3" name="informationWindow2"></textarea>
+        <br>
+        bottom right (33)<br>
+        <textarea type="text" id="infoWindow3" rows="3" name="informationWindow3"></textarea>
+        <br>
+        <custom style="color: darkred;">MET Warnings:</custom><br>
+        <textarea type="text" id="warningsWindow" rows="2" name="warningsWindow"></textarea>
+        <br>
+        
+        <hr>
+
+        <b>Runway status: &emsp;</b>
+        <select name="rwy15Closed" id="rwy15Closed" style="width: 120px;">
+            <option value="off"></option>
+            <option value="0">15/33 open</option>
+            <option value="1">15/33 closed</option>
+        </select>
+        <select name="rwy04LClosed" id="rwy04LClosed" style="width: 120px;">
+            <option value="off"></option>
+            <option value="0">04L/22R open</option>
+            <option value="1">04L/22R closed</option>
+        </select>
+        <select name="rwy04RClosed" id="rwy04RClosed" style="width: 120px;">
+            <option value="off"></option>
+            <option value="0">04R/22L open</option>
+            <option value="1">04R/22L closed</option>
+        </select>
+        &ensp;
+        <button id="saveClosure" onclick="pushRunwayStatusData();">Save data</button>
+        <span id="closureSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
+        <hr>
+    </body>
+</html>
+
+
