@@ -122,6 +122,7 @@ async function fetchData() {
 window.onload = fetchData;
 
 async function pushConditionData() {
+    document.getElementById("pushConditionDataLoader").style.visibility = "visible";
     // push RWYCC, upgr/dngr, contaminant, depth, cleared width and twy/apn conditions
     const recordMap = await fetchRecordIds();
     const rwyccValue = document.getElementById('rwycc').value;
@@ -140,9 +141,11 @@ async function pushConditionData() {
 
     saveToAirtableSecondColumn(recordMap.get('rwycc_all_rwys'), 'rwycc_all_rwys', gradeValue);
     saveToAirtableSecondColumn(recordMap.get('contaminants'), 'contaminants', depthValue);
+    document.getElementById("pushConditionDataLoader").style.visibility = "hidden";
 }
 
 function pushInformationData() {
+    document.getElementById("pushInformationDataLoader").style.visibility = "visible";
     // push operational information and MET Warnings
     const infoWindow1 = document.getElementById('infoWindow1').value;
     const infoWindow2 = document.getElementById('infoWindow2').value;
@@ -156,6 +159,7 @@ function pushInformationData() {
 }
 
 async function pushRunwayStatusData() {
+    document.getElementById("pushRunwayStatusDataLoader").style.visibility = "visible";
     // push runway status (opened or closed)
     const recordMap = await fetchRecordIds();
     const rwy04L = document.getElementById('rwy04LClosed').value;
@@ -167,7 +171,8 @@ async function pushRunwayStatusData() {
 
     saveToAirtable(recordId1, 'rwy_04L_clsd', rwy04L);
     saveToAirtable(recordId2, 'rwy_04R_clsd', rwy04R);
-    saveToAirtable(recordId3, 'rwy_15_clsd', rwy15); 
+    saveToAirtable(recordId3, 'rwy_15_clsd', rwy15);
+    document.getElementById("pushRunwayStatusDataLoader").style.visibility = "hidden";
 }
 
 async function setinfoWindow1(infoWindow1Value) {
@@ -260,19 +265,17 @@ async function setMetWarnings(infoWindowValue) {
         saveToAirtable(recordId1, 'warnings', lines[0]);
         saveToAirtable(recordId2, 'warnings_line_2', lines[1] ? lines[1] : '');
     }
+    document.getElementById("pushInformationDataLoader").style.visibility = "hidden";
 }
 
 function pushCommentData() {
-    // push operational information and MET Warnings
+    document.getElementById("pushCommentDataLoader").style.visibility = "visible";
     const commentRCR = document.getElementById('rcrComment').value;
     const commentSNOWTAM = document.getElementById('snowtamComment').value;
     const commentTWY = document.getElementById('taxiwayComment').value;
     const commentAPN = document.getElementById('apronComment').value;
     
     setComments(commentRCR, commentSNOWTAM, commentTWY, commentAPN);
-    //setinfoWindow2(commentSNOWTAM);
-    //setinfoWindow3(commentTWY);
-    //setMetWarnings(commentAPN);
 }
 
 async function setComments(commentRCR, commentSNOWTAM, commentTWY, commentAPN) {
@@ -287,6 +290,8 @@ async function setComments(commentRCR, commentSNOWTAM, commentTWY, commentAPN) {
     saveToAirtable(recordId2, 'snowtamComments', commentSNOWTAM);
     saveToAirtable(recordId3, 'taxiwayComments', commentTWY);
     saveToAirtable(recordId4, 'apronComments', commentAPN);
+
+    document.getElementById("pushCommentDataLoader").style.visibility = "hidden";
 }
 
 

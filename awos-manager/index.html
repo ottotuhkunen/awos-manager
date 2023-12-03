@@ -59,7 +59,7 @@
     <body>
         <b>Runway condition: &ensp;</b>
         <button id="saveRWYCC" onclick="pushConditionData();">Save data</button>
-        <span id="rwyccSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
+        <img id="pushConditionDataLoader" src="./ajax-loader.gif" alt="loading..." style="width: 18px; vertical-align: middle; visibility: hidden;">
         <br><br>
         <select name="rwycc" id="rwycc" style="width: 56px;">
             <option value="off"></option>
@@ -149,7 +149,7 @@
 
         <b>Information windows: &ensp;</b>
         <button id="saveInformationWindows" onclick="pushInformationData();">Save data</button>
-        <span id="infoWindowSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
+        <img id="pushInformationDataLoader" src="./ajax-loader.gif" alt="loading..." style="width: 18px; vertical-align: middle; visibility: hidden;">
         <br><br>
         left side (04L)<br>
         <textarea type="text" id="infoWindow1" rows="3" name="informationWindow1"></textarea>
@@ -184,10 +184,11 @@
         </select>
         &ensp;
         <button id="saveClosure" onclick="pushRunwayStatusData();">Save data</button>
-        <span id="closureSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
+        <img id="pushRunwayStatusDataLoader" src="./ajax-loader.gif" alt="loading..." style="width: 18px; vertical-align: middle; visibility: hidden;">
         <hr>
         <b>Comment 'torni': &ensp;</b>
         <button id="saveInformationWindows" onclick="pushCommentData();">Save data</button>
+        <img id="pushCommentDataLoader" src="./ajax-loader.gif" alt="loading..." style="width: 18px; vertical-align: middle; visibility: hidden;">
         <br>RCR comment<br>
         <textarea type="text" class="commentWindows" id="rcrComment" rows="3" name="rcrComment"></textarea>
         <br>SNOWTAM airport comments<br>
