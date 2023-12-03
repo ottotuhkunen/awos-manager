@@ -17,8 +17,12 @@ let metWarningsText;
 let runway15clsd;
 let runway04Lclsd;
 let runway04Rclsd;
-let infoWindowLines = {};  // Object to store lines
-let warningLines = {};  // Object to store lines
+let infoWindowLines = {};
+let warningLines = {};
+let comment_rcr;
+let comment_snowtam;
+let comment_twy;
+let comment_apn;
 
 
 // fetch data from Airtable:
@@ -79,6 +83,12 @@ async function fetchData() {
             if (record.fields['Name'] === 'rwy_04L_clsd') runway04Lclsd = record.fields['content'];
             if (record.fields['Name'] === 'rwy_04R_clsd') runway04Rclsd = record.fields['content'];
             if (record.fields['Name'] === 'rwy_15_clsd') runway15clsd = record.fields['content'];
+
+            // comments
+            if (record.fields['Name'] === 'rcrComments') comment_rcr = record.fields['content'];
+            if (record.fields['Name'] === 'snowtamComments') comment_snowtam = record.fields['content'];
+            if (record.fields['Name'] === 'taxiwayComments') comment_twy = record.fields['content'];
+            if (record.fields['Name'] === 'apronComments') comment_apn = record.fields['content'];
         }
         
 
@@ -101,6 +111,11 @@ async function fetchData() {
     document.getElementById("rwy04LClosed").value = runway04Lclsd;
     document.getElementById("rwy04RClosed").value = runway04Rclsd;
     document.getElementById("rwy15Closed").value = runway15clsd;
+    document.getElementById("rcrComment").value = comment_rcr;
+    document.getElementById("snowtamComment").value = comment_snowtam;
+    document.getElementById("taxiwayComment").value = comment_twy;
+    document.getElementById("apronComment").value = comment_apn;
+
 }
 
 // Call the fetchData function when the page loads
@@ -245,6 +260,33 @@ async function setMetWarnings(infoWindowValue) {
         saveToAirtable(recordId1, 'warnings', lines[0]);
         saveToAirtable(recordId2, 'warnings_line_2', lines[1] ? lines[1] : '');
     }
+}
+
+function pushCommentData() {
+    // push operational information and MET Warnings
+    const commentRCR = document.getElementById('rcrComment').value;
+    const commentSNOWTAM = document.getElementById('snowtamComment').value;
+    const commentTWY = document.getElementById('taxiwayComment').value;
+    const commentAPN = document.getElementById('apronComment').value;
+    
+    setComments(commentRCR, commentSNOWTAM, commentTWY, commentAPN);
+    //setinfoWindow2(commentSNOWTAM);
+    //setinfoWindow3(commentTWY);
+    //setMetWarnings(commentAPN);
+}
+
+async function setComments(commentRCR, commentSNOWTAM, commentTWY, commentAPN) {
+    const recordMap = await fetchRecordIds();
+
+    const recordId1 = recordMap.get('rcrComments');
+    const recordId2 = recordMap.get('snowtamComments');
+    const recordId3 = recordMap.get('taxiwayComments');
+    const recordId4 = recordMap.get('apronComments');
+
+    saveToAirtable(recordId1, 'rcrComments', commentRCR);
+    saveToAirtable(recordId2, 'snowtamComments', commentSNOWTAM);
+    saveToAirtable(recordId3, 'taxiwayComments', commentTWY);
+    saveToAirtable(recordId4, 'apronComments', commentAPN);
 }
 
 

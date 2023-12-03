@@ -38,6 +38,12 @@
             font-size: 18px;
             margin: 8px;
         }
+        .commentWindows {
+            margin: 8px;
+            width: 343.5px;
+            font-family: 'Verdana';
+            font-size: 18px;
+        }
         #warningsWindow {
             width: 1084px;
             font-family: 'Verdana';
@@ -180,6 +186,16 @@
         <button id="saveClosure" onclick="pushRunwayStatusData();">Save data</button>
         <span id="closureSavedNotification" style="font-size: 10pt; visibility: hidden;">Data saved successfully</span>
         <hr>
+        <b>Comment 'torni': &ensp;</b>
+        <button id="saveInformationWindows" onclick="pushCommentData();">Save data</button>
+        <br>RCR comment<br>
+        <textarea type="text" class="commentWindows" id="rcrComment" rows="3" name="rcrComment"></textarea>
+        <br>SNOWTAM airport comments<br>
+        <textarea type="text" class="commentWindows" id="snowtamComment" rows="3" name="snowtamComment"></textarea>
+        <br>Taxiway comments<br>
+        <textarea type="text" class="commentWindows" id="taxiwayComment" rows="3" name="taxiwayComment"></textarea>
+        <br>Apron comments<br>
+        <textarea type="text" class="commentWindows" id="apronComment" rows="3" name="apronComment"></textarea>
     </body>
 </html>
 
