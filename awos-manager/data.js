@@ -6,6 +6,7 @@ const baseUrl = 'https://api.airtable.com/v0/appGAYI2wFvY7jZVG/Table%201';
 let rwycc;
 let graded;
 let contaminants;
+let coveragePercentage;
 let contaminantDepth;
 let taxiwayConditions;
 let apronConditions;
@@ -64,6 +65,8 @@ async function fetchData() {
             // rwycc and upgraded/downgraded values
             if (record.fields['Name'] === 'rwycc_all_rwys') rwycc = record.fields['content'];
             if (record.fields['Name'] === 'rwycc_all_rwys') graded = record.fields['rwycc_upgr_dngr'];
+            // contaminant coverage percentage
+            if (record.fields['Name'] === 'coverage') coveragePercentage = record.fields['content'];
             // contaminants and depth
             if (record.fields['Name'] === 'contaminants') contaminants = record.fields['content'];
             if (record.fields['Name'] === 'contaminants') contaminantDepth = record.fields['rwycc_upgr_dngr'];
@@ -103,6 +106,7 @@ async function fetchData() {
     document.getElementById("rwycc").value = rwycc;
     document.getElementById("upgr_dngr").value = graded;
     document.getElementById("contaminants").value = contaminants;
+    document.getElementById("coverage").value = coveragePercentage;
     document.getElementById("depth").value = contaminantDepth;
     document.getElementById("twyConditions").value = taxiwayConditions;
     document.getElementById("apnConditions").value = apronConditions;
@@ -128,6 +132,7 @@ async function pushConditionData() {
     const rwyccValue = document.getElementById('rwycc').value;
     const gradeValue = document.getElementById('upgr_dngr').value;
     const depthValue = document.getElementById('depth').value;
+    const coverageValue = document.getElementById('coverage').value;
     const contaminantsValue = document.getElementById('contaminants').value;
     const twyConditionsValue = document.getElementById('twyConditions').value;
     const apnConditionsValue = document.getElementById('apnConditions').value;
@@ -138,6 +143,7 @@ async function pushConditionData() {
     saveToAirtable(recordMap.get('twyConditions'), 'twyConditions', twyConditionsValue);
     saveToAirtable(recordMap.get('apronConditions'), 'apronConditions', apnConditionsValue);
     saveToAirtable(recordMap.get('rwyWidth'), 'rwyWidth', widthValue);
+    saveToAirtable(recordMap.get('coverage'), 'coverage', coverageValue);
 
     saveToAirtableSecondColumn(recordMap.get('rwycc_all_rwys'), 'rwycc_all_rwys', gradeValue);
     saveToAirtableSecondColumn(recordMap.get('contaminants'), 'contaminants', depthValue);
